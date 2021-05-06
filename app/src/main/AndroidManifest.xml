@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mainform">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MainForm">
+        <activity android:name=".SuaPB"></activity>
+        <activity
+            android:name=".AddPhongBan"
+            android:label="Thêm phòng ban"
+            android:parentActivityName=".department" />
+        <activity
+            android:name=".SuaNV"
+            android:label="Sửa thông tin nhân viên"
+            android:parentActivityName=".Employee" />
+        <activity
+            android:name=".Employee"
+            android:label="Danh sách nhân viên" />
+        <activity
+            android:name=".AddEmployee"
+            android:label="Thêm nhân viên"
+            android:parentActivityName=".Employee" />
+        <activity
+            android:name=".timesheet"
+            android:label="Bảng lương" />
+        <activity
+            android:name=".payroll"
+            android:label="Bảng chấm công" />
+        <activity
+            android:name=".department"
+            android:label="Các bộ phận" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".Login" />
+        <activity android:name=".Categories" />
+        <activity android:name=".lookScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>
