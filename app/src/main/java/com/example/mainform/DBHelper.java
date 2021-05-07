@@ -27,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         MyDB.execSQL("create Table TaiKhoan(Username TEXT PRIMARY KEY, password TEXT, Email TEXT)");
 
-        MyDB.execSQL("create Table NhanVien(MaNV VARCHAR PRIMARY KEY, Ten TEXT, TenPB TEXT, Email TEXT, GioiTinh TEXT, SDT CHAR, TrangThai INT)");
+        MyDB.execSQL("create Table NhanVien(MaNV VARCHAR PRIMARY KEY, Ten TEXT, TenPB TEXT, Email TEXT, GioiTinh TEXT, SDT CHAR, NgaySinh DATE, TrangThai INT)");
 
         MyDB.execSQL("create Table PhongBan(MaPB VARCHAR PRIMARY KEY, TenPB TEXT, SDT CHAR)");
 
@@ -64,7 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    Boolean insertNhanVien(String MaNV, String Ten, String TenPB, String email, String GioiTinh,  String SDT, int TrangThai) {
+    Boolean insertNhanVien(String MaNV, String Ten, String TenPB, String email, String GioiTinh,  String SDT, String NgaySinh, int TrangThai) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("MaNV", MaNV);
@@ -73,6 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("email", email);
         contentValues.put("GioiTinh", GioiTinh);
         contentValues.put("SDT", SDT);
+        contentValues.put("NgaySinh", NgaySinh);
         contentValues.put("TrangThai", TrangThai);
         long result = MyDB.insert("NhanVien", null, contentValues);
         if (result == -1) return false;
@@ -80,7 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
     }
     Cursor readNhanVien(){
-        String query = "Select  MaNV, Ten, TenPB, Email, GioiTinh, SDT from NhanVien where TrangThai=1";
+        String query = "Select  MaNV, Ten, TenPB, Email, GioiTinh, SDT, NgaySinh from NhanVien where TrangThai=1";
         SQLiteDatabase MyDB = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -89,7 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return cursor;
     }
-    Boolean updateNV(String MaNV, String Ten, String TenPB, String email, String GioiTinh, String SDT, int TrangThai){
+    Boolean updateNV(String MaNV, String Ten, String TenPB, String email, String GioiTinh, String SDT, String NgaySinh, int TrangThai){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("MaNV", MaNV);
@@ -98,6 +99,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("email", email);
         cv.put("GioiTinh", GioiTinh);
         cv.put("SDT", SDT);
+        cv.put("NgaySinh", NgaySinh);
         cv.put("TrangThai", TrangThai);
        long result = MyDB.update("NhanVien", cv, "MaNV=?", new String[]{MaNV});
         if(result==-1){

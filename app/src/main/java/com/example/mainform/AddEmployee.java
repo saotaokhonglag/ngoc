@@ -3,6 +3,7 @@ package com.example.mainform;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,17 +12,20 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 
 public class AddEmployee extends AppCompatActivity {
-    EditText MaNV, Ten, Email, SDT;
+    EditText MaNV, Ten, Email, SDT, ngaysinh;
     RadioButton rd_gt;
     RadioGroup r_gioitinh;
     Spinner TenPB;
@@ -36,15 +40,17 @@ public class AddEmployee extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_employee);
+        DB = new DBHelper(this);
 
         MaNV = (EditText) findViewById(R.id.MaNV);
         TenPB = (Spinner) findViewById(R.id.tenpb);
         Ten = (EditText) findViewById(R.id.Ten);
         Email = (EditText) findViewById(R.id.email);
         SDT = (EditText) findViewById(R.id.sdt);
+        ngaysinh = findViewById(R.id.ngaysinh);
         add = (Button) findViewById(R.id.add);
         r_gioitinh = findViewById(R.id.radioGroup);
-        DB = new DBHelper(this);
+
         sqlite = openOrCreateDatabase("QLNS.db",SQLiteDatabase.CREATE_IF_NECESSARY,null);
         Cursor c = sqlite.rawQuery("Select MaPB,TenPB from PhongBan", null);
         arrMa = new String[c.getCount()];
@@ -57,7 +63,12 @@ public class AddEmployee extends AppCompatActivity {
         }
         ArrayAdapter arrayAdapter=new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, arrTen);
         TenPB.setAdapter(arrayAdapter);
-
+            ngaysinh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    chonngay();
+                }
+            });
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -68,14 +79,14 @@ public class AddEmployee extends AppCompatActivity {
                     String ten = Ten.getText().toString().trim();
                     String email = Email.getText().toString().trim();
                     String sdt = SDT.getText().toString().trim();
-
-                    if (Manv.equals("") || ten.equals("") || email.equals("") || sdt.equals("") || r_id==-1) {
+                    String ns = ngaysinh.getText().toString().trim();
+                    if (Manv.equals("") || ten.equals("") || email.equals("") || sdt.equals("") || r_id==-1 || ns.equals("")) {
                         Toast.makeText(AddEmployee.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                     } else {
                         Boolean checkManv = DB.checkMaNV(Manv);
                         if (checkManv == false) {
                             String gt = rd_gt.getText().toString().trim();
-                            Boolean insert = DB.insertNhanVien(Manv, ten, Tenpb, email, gt, sdt, TrangThai);
+                            Boolean insert = DB.insertNhanVien(Manv, ten, Tenpb, email, gt, sdt, ns, TrangThai);
                             if (insert == true) {
                                 Toast.makeText(AddEmployee.this, "Thêm nhân viên thành công!", Toast.LENGTH_SHORT).show();
                                 finish();
@@ -91,5 +102,20 @@ public class AddEmployee extends AppCompatActivity {
                     }
                 }
             });
+        }
+        public void chonngay(){
+            Calendar calendar = Calendar.getInstance();
+            int ngay = calendar.get(Calendar.DATE);
+            int thang = calendar.get(Calendar.MONTH);
+            int nam = calendar.get(Calendar.YEAR);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    calendar.set(year, month, dayOfMonth);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    ngaysinh.setText(simpleDateFormat.format(calendar.getTime()));
+                }
+            },nam, thang, ngay);
+            datePickerDialog.show();
         }
     }

@@ -12,7 +12,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="190dp"
             android:background="@drawable/border_bottom"
             android:padding="8dp"
             android:paddingLeft="0dp">
@@ -130,6 +130,25 @@
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/Ma_pb2"
                 app:layout_constraintTop_toBottomOf="@+id/email_nv" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Ngày sinh: "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pb" />
+
+            <TextView
+                android:id="@+id/ns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="20/10/2000"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/Ma_pb2"
+                app:layout_constraintTop_toBottomOf="@+id/Ten_pb" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

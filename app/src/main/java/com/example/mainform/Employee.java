@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Employee extends AppCompatActivity {
     RecyclerView recyclerView;
     DBHelper DB;
-    ArrayList<String> MaNV, Ten, TenPB, Email, GioiTinh, SDT;
+    ArrayList<String> MaNV, Ten, TenPB, Email, GioiTinh, SDT, NgaySinh;
     CustomNV customNV;
     SQLiteDatabase sqlite;
 
@@ -52,10 +52,11 @@ public class Employee extends AppCompatActivity {
         Email = new ArrayList<>();
         GioiTinh = new ArrayList<>();
         SDT = new ArrayList<>();
+        NgaySinh = new ArrayList<>();
 
         displayData();
 
-        customNV = new CustomNV(Employee.this, MaNV, Ten, TenPB, Email, GioiTinh, SDT);
+        customNV = new CustomNV(Employee.this, MaNV, Ten, TenPB, Email, GioiTinh, SDT, NgaySinh);
         recyclerView.setAdapter(customNV);
         recyclerView.setLayoutManager(new LinearLayoutManager(Employee.this));
     }
@@ -71,6 +72,7 @@ public class Employee extends AppCompatActivity {
                 Email.add(cursor.getString(3));
                 GioiTinh.add(cursor.getString(4));
                 SDT.add(cursor.getString(5));
+                NgaySinh.add(cursor.getString(6));
             }
         }
     }

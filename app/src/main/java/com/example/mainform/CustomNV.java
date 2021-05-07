@@ -20,10 +20,11 @@ public class CustomNV extends RecyclerView.Adapter<CustomNV.MyViewHolder> {
     ArrayList Email;
     ArrayList GioiTinh;
     ArrayList SDT;
+    ArrayList NgaySinh;
     int TrangThai;
     Context context;
 
-    CustomNV(Context context, ArrayList MaNV, ArrayList Ten, ArrayList TenPB, ArrayList Email, ArrayList GioiTinh, ArrayList SDT){
+    CustomNV(Context context, ArrayList MaNV, ArrayList Ten, ArrayList TenPB, ArrayList Email, ArrayList GioiTinh, ArrayList SDT, ArrayList NgaySinh){
         this.context = context;
         this.MaNV = MaNV;
         this.Ten = Ten;
@@ -31,6 +32,7 @@ public class CustomNV extends RecyclerView.Adapter<CustomNV.MyViewHolder> {
         this.Email = Email;
         this.GioiTinh = GioiTinh;
         this.SDT = SDT;
+        this.NgaySinh = NgaySinh;
 
     }
     @NonNull
@@ -49,6 +51,7 @@ public class CustomNV extends RecyclerView.Adapter<CustomNV.MyViewHolder> {
         holder.email_nv.setText(String.valueOf(Email.get(position)));
         holder.gioitinh_nv.setText(String.valueOf(GioiTinh.get(position)));
         holder.sdt_nv.setText(String.valueOf(SDT.get(position)));
+        holder.ns.setText(String.valueOf(NgaySinh.get(position)));
         holder.mainlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +62,7 @@ public class CustomNV extends RecyclerView.Adapter<CustomNV.MyViewHolder> {
                 intent.putExtra("Email",String.valueOf(Email.get(position)));
                 intent.putExtra("GioiTinh",String.valueOf(GioiTinh.get(position)));
                 intent.putExtra("SDT",String.valueOf(SDT.get(position)));
+                intent.putExtra("NgaySinh",String.valueOf(NgaySinh.get(position)));
                 context.startActivity(intent);
             }
         });
@@ -70,16 +74,19 @@ public class CustomNV extends RecyclerView.Adapter<CustomNV.MyViewHolder> {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView Ma_nv, Ten_nv, Ten_pb, email_nv, gioitinh_nv, sdt_nv;
+        TextView Ma_nv, Ten_nv, Ten_pb, email_nv, gioitinh_nv, sdt_nv, ns;
         LinearLayout mainlayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
             Ma_nv = itemView.findViewById(R.id.Ma_pb2);
             Ten_nv = itemView.findViewById(R.id.Ten_pb2);
             Ten_pb = itemView.findViewById(R.id.Ten_pb);
             email_nv = itemView.findViewById(R.id.email_nv);
             gioitinh_nv = itemView.findViewById(R.id.gioitinh);
             sdt_nv = itemView.findViewById(R.id.sdt_pb);
+            ns = itemView.findViewById(R.id.ns);
+
             mainlayout = itemView.findViewById(R.id.mainlayout);
         }
     }
